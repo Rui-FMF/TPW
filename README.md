@@ -1,2 +1,9 @@
 # TPW
-Cadeira de Tecnologias e Programação Web 2020/2021
+
+Projects done by:
+--> Rui Fernandes
+--> Leandro Silva
+
+Grades given:
+Project 1: 20
+Project 2: 19.8
