@@ -1,0 +1,138 @@
+<div class="nk-main">
+
+  <div class="container">
+
+    <app-error-box *ngIf="!user; else exists">User not Found: the requested user does not exist.</app-error-box>
+
+    <ng-template #exists>
+    <h2 class="nk-decorated-h"><span><span class="text-main-1">
+            </span>{{ myself ? 'My' : user?.username + "'s" }} Profile</span></h2>
+    <div class="nk-gap-2"></div>
+
+    <!-- START: User Card -->
+    <div class="row justify-content-sm-center nk-teammate-card">
+      <div class="nk-teammate-card-photo">
+        <img src="{{ baseURL + profile?.avatar }}" alt="{{ user?.username }}">
+      </div>
+
+      <div class="nk-teammate-card-info">
+        <table>
+          <tbody>
+          <tr>
+            <td colspan="2">
+              <table>
+                <tbody>
+                <tr>
+                  <td><strong class="h5">Name:</strong>&nbsp;&nbsp;&nbsp;</td>
+                  <td><strong class="h5">{{ user?.first_name }} {{ user?.last_name }} </strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong class="h5">Username:</strong>&nbsp;&nbsp;&nbsp;</td>
+                  <td><strong class="h5">{{ user?.username }}</strong></td>
+                </tr>
+                <tr>
+                  <td><strong class="h5">Email:</strong>&nbsp;&nbsp;&nbsp;</td>
+                  <td><strong class="h5">{{ user?.email }}</strong></td>
+                </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong class="h3">{{ avgRating }}</strong>
+            </td>
+            <td>
+              <strong class="h5">Reviews Rating</strong>
+              <div *ngIf="avgRating; else norat2">Average rating from the buyers' testimonies.</div>
+              <ng-template #norat2><div>No ratings...</div></ng-template>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong class="h3">{{ articlesOnSale?.length }}</strong>
+            </td>
+            <td>
+              <strong class="h5">Articles On Sale</strong>
+              <div></div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong class="h3">{{ articlesSold?.length }}</strong>
+            </td>
+            <td>
+              <strong class="h5">Articles Sold</strong>
+              <div></div>
+            </td>
+          </tr>
+          <tr *ngIf="myself;">
+            <td colspan="2" class="text-right">
+              <a routerLink="/profile/edit" class="nk-btn nk-btn-lg nk-btn-rounded nk-btn-color-white">Edit
+                Profile</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- END: User Card -->
+
+    <div class="row vertical-gap">
+      <div class="col-lg-8">
+
+        <!-- START: Biography -->
+        <div class="nk-gap-3"></div>
+        <h3 class="nk-decorated-h-2"><span>Biography</span></h3>
+        <p *ngIf="profile?.biography; else nobio">
+          {{ profile?.biography }}
+        </p>
+        <ng-template #nobio>
+          <div style="height:100px; display:flex;">
+            <div style="margin: auto; font-weight: bold;">
+              No biography....
+            </div>
+          </div>
+        </ng-template>
+        <!-- END: Biography -->
+
+        <!-- START: Reviews -->
+        <div class="nk-gap-2"></div>
+        <h3 class="nk-decorated-h-2"><span><span class="text-main-1">{{ reviews?.length }}</span> Reviews</span></h3>
+        <div class="nk-gap"></div>
+        <div class="nk-comments">
+
+          <!-- START: Reviews -->
+          <app-review-comment *ngFor="let r of reviews" [review]="r"></app-review-comment>
+          <!-- END: Reviews -->
+
+        </div>
+        <!-- END: Reviews -->
+
+      </div>
+
+      <div class="col-lg-4 nk-sidebar-sticky-parent" style="">
+        <!--
+            START: Sidebar
+
+            Additional Classes:
+                .nk-sidebar-left
+                .nk-sidebar-right
+                .nk-sidebar-sticky
+        -->
+        <div class="nk-gap-3"></div>
+        <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
+          <!-- TODO: change redTitle -->
+          <app-article-widget [redTitle]="myself ? 'My' : user?.username" [title]="'Articles'"
+                              [articles]="articlesOnSale" [viewMoreUrl]="'/articles/owned/' + user?.id">
+          </app-article-widget>
+
+        </aside>
+        <!-- END: Sidebar -->
+      </div>
+    </div>
+    </ng-template>
+  </div>
+  <div class="nk-gap-2"></div>
+</div>

@@ -1,0 +1,19 @@
+<div class="row vertical-gap">
+  <div class="col-lg-4" *ngFor="let p of objectKeys(platforms)">
+    <div (click)="filterPlatform(p)" style="cursor: pointer">
+    <div class="nk-feature-1" [style.border]="selected == p? '1px solid #dd163b': ''">
+      <div class="nk-feature-icon">
+        <img src="assets/images/icon-platform-{{ p }}.png" alt="{{ platforms[p] }}">
+      </div>
+      <div class="nk-feature-cont">
+        <h3 class="nk-feature-title">
+          {{ platforms[p] }}
+        </h3>
+        <h3 class="nk-feature-title text-main-1">
+          View Games
+        </h3>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>

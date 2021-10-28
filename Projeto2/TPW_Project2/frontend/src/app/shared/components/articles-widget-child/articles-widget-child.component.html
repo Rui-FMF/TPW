@@ -1,0 +1,12 @@
+<a routerLink="/articles/details/{{ article.id }}" class="nk-post-image">
+  <img src="{{ articleImage }}"
+       alt="{{ article.name }}">
+</a>
+<h3 class="nk-post-title"><a href="/articles/details/{{ article.id }}">
+  {{ article.name }}
+</a></h3>
+<div #rating class="nk-product-rating" [attr.data-rating]="userRating"></div>
+({{ userReviewsNum }})
+<div class="nk-product-price">{{ article.total_price }} €</div>
+
+

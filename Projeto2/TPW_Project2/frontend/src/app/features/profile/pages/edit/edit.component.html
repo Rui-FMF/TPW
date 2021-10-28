@@ -1,0 +1,39 @@
+<div class="form-padding-2">
+  <h3><span><span class="text-main-1">Edit</span> Profile</span></h3>
+  <div class="nk-gap-1"></div>
+
+  <div class="nk-box-2 bg-dark-2">
+
+  <div class="nk-box-2 bg-dark-2">
+    <form *ngIf="profileForm" [formGroup]="profileForm" (ngSubmit)="submit()">
+      <div class="form-group">
+        <label for="avatar">Avatar:</label>
+        <br>
+        <input id="avatar" type="file" name="avatar" (change)="handleFileInput($event.target.files)">
+        <div *ngFor="let e of error?.error.avatar">
+          <a href="#" class="error">{{ e }}</a>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="biography">Biography:</label>
+        <textarea id="biography" formControlName="biography" class="form-control"></textarea>
+        <div *ngFor="let e of error?.error.biography">
+          <a href="#" class="error">{{ e }}</a>
+        </div>
+      </div>
+
+      <div class="nk-gap-1"></div>
+      <div class="row vertical-gap justify-content-end">
+        <div class="col-md-5">
+          <button type="submit"
+                  class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-block"
+                  name="profile_submit">Apply Changes
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+</div>
+

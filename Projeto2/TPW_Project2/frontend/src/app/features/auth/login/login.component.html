@@ -1,0 +1,43 @@
+<div class="form-padding-2">
+  <h4 class="mb-0"><span class="text-main-1">Log</span> In</h4>
+  <div class="nk-gap-1"></div>
+
+  <form [formGroup]="loginForm" (ngSubmit)="login()" class="nk-form text-white">
+    Use username and password:
+
+    <div class="nk-gap"></div>
+    <input formControlName="username" type="text" value="" class="form-control" placeholder="Username">
+    <div *ngFor="let e of error?.error.username">
+      <a href="#" class="error">{{ e }}</a>
+    </div>
+
+    <div class="nk-gap"></div>
+    <input formControlName="password" type="password" value="" class="form-control" placeholder="Password">
+    <div *ngFor="let e of error?.error.password">
+      <a href="#" class="error">{{ e }}</a>
+    </div>
+
+    <div class="nk-gap"></div>
+
+    <div *ngFor="let e of error?.error.global">
+      <a href="#" class="error">{{ e }}</a>
+    </div>
+
+    <div class="nk-gap-1"></div>
+    <div class="row vertical-gap">
+      <div class="col-md-6">
+        <button type="submit"
+                class="nk-btn nk-btn-rounded nk-btn-color-white nk-btn-block"
+                name="login">Log In</button>
+      </div>
+      <div class="col-md-6">
+        <div class="mnt-5">
+          <small><a routerLink="/signup">Not a member? Sign up</a></small>
+        </div>
+      </div>
+    </div>
+
+
+  </form>
+</div>
+

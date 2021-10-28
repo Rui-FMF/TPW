@@ -1,0 +1,214 @@
+<div class="nk-main">
+  <div class="container">
+
+<!--    {% if article_not_found %}-->
+<!--    <div class="nk-info-box text-danger">-->
+<!--      <div class="nk-info-box-icon">-->
+<!--        <i class="ion-close-round"></i>-->
+<!--      </div>-->
+<!--      <h3>Error!</h3>-->
+<!--      <em>Article not Found: the requested article does not exist.</em>-->
+<!--    </div>-->
+<!--    {% else %}-->
+    <h3 class="nk-decorated-h-2"><span>{{ article?.name }}</span></h3>
+    <div class="nk-gap-1"></div>
+
+
+    <div class="row vertical-gap">
+      <div class="col-lg-8">
+        <div class="nk-store-product">
+          <div class="row vertical-gap">
+            <div class="col-md-6">
+              <!-- START: Product Photos -->
+              <div class="nk-popup-gallery" data-pswp-uid="1">
+                <div class="nk-gallery-item-box">
+                  <a href="{{ articleImage }}" class="nk-gallery-item"
+                     data-size="1200x554">
+                    <div class="nk-gallery-item-overlay"><span class="ion-eye"></span></div>
+                    <img src="{{ articleImage }}"
+                         alt="{{ article?.name }}">
+                  </a>
+                </div>
+
+                <div class="nk-gap-1"></div>
+                <div *ngIf="article" class="row vertical-gap sm-gap">
+                  <div *ngFor="let i of article.items_in_article | slice:1" class="col-6 col-md-4">
+                    <div class="nk-gallery-item-box">
+                      <a href="#"
+                         class="nk-gallery-item"
+                         data-size="622x942">
+                        <div class="nk-gallery-item-overlay"><span
+                          class="ion-eye"></span>
+                        </div>
+                        <img src="{{ baseURL + i.image }}"
+                             alt="{{ i.name }}">
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- END: Product Photos -->
+            </div>
+            <div class="col-md-6">
+
+              <h2 class="nk-product-title h3">{{ article?.name }}</h2>
+
+              <div class="nk-post-share d-flex">
+                <span class="h5">Seller:  </span>
+                <span class="h5" style="margin-left: auto">
+                  <a routerLink="/profile/details/{{ article?.seller.id }}">{{ article?.seller.username }}</a>
+                </span>
+              </div>
+
+              <!-- START: Add to -->
+              <div class="nk-gap-2"></div>
+              <form *ngIf="authService.isLoggedIn()" action="." method="post" class="nk-product-addtocart">
+
+                <div class="nk-gap-1"></div>
+                <div class="nk-product-price">{{ article?.total_price }} €</div>
+                <div class="nk-gap-1"></div>
+                <div class="text-white font-weight-bold">Shipping Fee:&emsp;&emsp;&emsp;{{ article?.shipping_fee }} €</div>
+                <div class="nk-gap-3"></div>
+                <div class="row justify-content-start">
+                  <button type="submit" name="add_cart" class="nk-btn nk-btn-rounded nk-btn-color-main-1" style="margin-left: 20px" (click)="AddCart()">
+                    Add to Cart
+                  </button>
+                  <button type="submit" name="add_saved" class="nk-btn nk-btn-rounded nk-btn-color-main-1" style="margin-left: 20px" (click)="AddSaved()">
+                    Add to Saved
+                  </button>
+                </div>
+              </form>
+              <div class="nk-gap-3"></div>
+              <!-- END: Add to -->
+
+              <!-- START: Meta -->
+              <div class="nk-product-info-row row vertical-gap">
+                <div class="col-md-6">
+                  <div class="nk-gap"></div>
+                  <strong class="text-white">Tags:</strong>
+                  <div class="nk-gap"></div>
+                  <p *ngIf="!article?.tag.length; else elseBlock">None</p>
+                  <ng-template #elseBlock>
+                    <span *ngFor="let t of article.tag">
+                      <a routerLink="/articles/store" [queryParams]="{ tags: t.name }">{{ t.name }}</a>,
+                    </span>
+                  </ng-template>
+                  <div class="nk-gap"></div>
+                </div>
+                <div class="col-md-6">
+                  <div class="nk-gap"></div>
+                  <strong class="text-white">User Rating:</strong>
+                  <div class="nk-gap"></div>
+                  <div #rating class="nk-product-rating" [attr.data-rating]="userRating"></div>
+                  ({{ userReviewsNum }})
+                  <div class="nk-gap"></div>
+                </div>
+              </div>
+
+              <!-- END: Meta -->
+            </div>
+          </div>
+
+
+          <div class="nk-gap-2"></div>
+          <!-- START: Tabs -->
+          <div class="nk-tabs">
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active show" href="#tab-description" role="tab"
+                   data-toggle="tab"
+                   aria-selected="true">Description</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#tab-reviews" role="tab" data-toggle="tab"
+                   aria-selected="false">User Reviews ({{ userReviews|arrayLength }})</a>
+              </li>
+            </ul>
+
+            <div class="tab-content">
+
+              <!-- START: Tab Description -->
+              <div role="tabpanel" class="tab-pane fade active show" id="tab-description">
+                <div class="nk-gap"></div>
+                <strong class="text-white">Date Posted:&emsp;{{ article?.date_posted|date:'longDate' }}</strong>
+                <div class="nk-gap"></div>
+                <p>{{ article?.description }}</p>
+
+                <!-- START: Table -->
+                <div class="nk-gap-1"></div>
+                <table class="nk-table">
+                  <thead>
+                  <tr>
+                    <th colspan="3">Article Items</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <th>Name</th>
+                    <th>Condition</th>
+                    <th class="text-center">Price</th>
+                  </tr>
+                  <tr *ngFor="let i of article?.items_in_article">
+                    <td>{{ i.name }}</td>
+                    <td>{{ conditions[i.condition] }}</td>
+                    <td class="text-center"><strong>{{ i.price }} €</strong></td>
+                  </tr>
+
+                  </tbody>
+                </table>
+                <!-- END: Table -->
+              </div>
+
+
+              <!-- END: Tab Description -->
+
+              <!-- START: Tab Reviews -->
+              <div role="tabpanel" class="tab-pane fade" id="tab-reviews">
+                <div class="nk-gap-2"></div>
+
+                <!-- START: Reply -->
+                <h3 class="h4">Add a Review to this User</h3>
+                <div class="nk-reply">
+                  <app-review-form *ngIf="article" [reviewedId]="article.seller.id" (newReview)="handleNewReview($event)"></app-review-form>
+                </div>
+                <!-- END: Reply -->
+
+                <div class="clearfix"></div>
+                <div class="nk-gap-2"></div>
+                <div class="nk-comments">
+
+                  <!-- START: Reviews -->
+                  <app-review-comment *ngFor="let r of userReviews" [review]="r"></app-review-comment>
+                  <!-- END: Reviews -->
+
+                </div>
+              </div>
+              <!-- END: Tab Reviews -->
+
+            </div>
+          </div>
+          <!-- END: Tabs -->
+        </div>
+
+      </div>
+      <div class="col-lg-4 nk-sidebar-sticky-parent">
+        <!--
+            START: Sidebar
+
+            Additional Classes:
+                .nk-sidebar-left
+                .nk-sidebar-right
+                .nk-sidebar-sticky
+        -->
+        <aside class="nk-sidebar nk-sidebar-right nk-sidebar-sticky">
+
+            <app-article-widget [redTitle]="'Related'" [title]="'Articles'" [articles]="relatedArticles"></app-article-widget>
+
+        </aside>
+        <!-- END: Sidebar -->
+      </div>
+    </div>
+<!--    {% endif %}-->
+  </div>
+  <div class="nk-gap-2"></div>
+</div>

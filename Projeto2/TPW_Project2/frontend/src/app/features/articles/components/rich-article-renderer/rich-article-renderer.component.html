@@ -1,0 +1,46 @@
+<div class="nk-product-cat-2">
+  <a class="nk-product-image" routerLink="/articles/details/{{ article.id }}">
+    <img src="{{ articleImage }}" alt="{{ article.name }}">
+  </a>
+  <div class="nk-product-cont">
+    <h3 class="nk-product-title h5">
+      <a routerLink="/articles/details/{{ article.id }}">{{ article.name }}</a>
+    </h3>
+    <div class="nk-gap-1"></div>
+    <div>
+      <div #rating class="nk-product-rating" [attr.data-rating]="userRating"></div>
+      ({{ userReviewsNum }})
+    </div>
+    <div class="nk-gap-1"></div>
+    {{ article.description | slice:0:140 }}<span *ngIf="article.description.length > 140">&nbsp;(...)</span>
+    <div class="nk-gap-2"></div>
+    <div class="nk-product-price">{{ article.total_price }} €</div>
+    <div class="nk-gap-1"></div>
+<!--    <form action="." method="post">-->
+<!--      {% csrf_token %}-->
+<!--      <button type="submit" name="add_cart"-->
+<!--              class="nk-btn nk-btn-rounded nk-btn-color-main-1" style="margin-left: 20px"-->
+<!--              value={{ article.id }}>Add to Cart-->
+<!--      </button>-->
+<!--      <button type="submit"-->
+<!--              class="nk-btn nk-btn-rounded nk-btn-color-danger nk-btn-hover-color-main-1"-->
+<!--              name="del" value={{ article.id }}>Remove-->
+<!--      </button>-->
+<!--    </form>-->
+  </div>
+</div>
+
+<!--<script>-->
+<!--  console.log('nao da');-->
+<!--  $('.nk-product-rating, .nk-review-rating').each(function() {-->
+<!--    let rate = $(this).attr('data-rating');-->
+<!--    for (let i = 1; i <= 5; i++) {-->
+<!--      if (rate < i - 0.5)-->
+<!--        $(this).append('<i class="far fa-star"></i>');-->
+<!--      else if (rate >= i)-->
+<!--        $(this).append('<i class="fa fa-star"></i>');-->
+<!--      else-->
+<!--        $(this).append('<i class="fas fa-star-half"></i>');-->
+<!--    }-->
+<!--  });-->
+<!--</script>-->

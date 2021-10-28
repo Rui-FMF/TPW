@@ -1,0 +1,15 @@
+<div class="nk-widget nk-widget-highlighted">
+  <h4 class="nk-widget-title"><span><span class="text-main-1">{{ redTitle }}</span> {{ title }}</span>
+  </h4>
+  <div class="nk-widget-content">
+    <div class="nk-widget-post" *ngFor="let a of articles">
+      <app-articles-widget-child [article]="a"></app-articles-widget-child>
+    </div>
+    <div *ngIf="viewMoreUrl">
+      <div class="nk-gap-2"></div>
+      <div class="text-center">
+        <a [routerLink]="viewMoreUrl" class="nk-btn nk-btn-rounded nk-btn-color-main-1">View More</a>
+      </div>
+    </div>
+  </div>
+</div>
